@@ -1,7 +1,38 @@
 ﻿@page "/"
+@using Samples.BlazorFluentUI_Splashscreen.Components.Layout
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new Fluent Blazor app.
+
+This sample shows two issues:
+1) The splashscreen at application startup has the focus rectangle !
+2) The splashscreen can be closed pressing the Esc(ape) key !
+
+<LoadScreen @ref="_loadscreen" />
+
+
+@code 
+{
+    private LoadScreen _loadscreen;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadData();
+        }
+    }
+
+    private async Task LoadData()
+    {
+        _loadscreen.Show(true);
+
+        await Task.Delay(10000);
+
+        _loadscreen.Show(false);
+        StateHasChanged();
+    }
+}

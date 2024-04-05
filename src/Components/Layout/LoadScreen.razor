@@ -1,0 +1,46 @@
+﻿﻿@using Microsoft.FluentUI.AspNetCore.Components;
+
+@inject IDialogService DialogService;
+
+
+@code {
+    public SplashScreenContent Content { get; set; } = default!;
+
+    private IDialogReference? _dialog;
+    private DialogParameters<SplashScreenContent> parameters;
+
+
+    public void Show(bool _show)
+    {
+        if (_show == true)
+        {
+            InvokeAsync(ShowLoadScreenAsync);
+        }
+        else
+        {
+            if (_dialog != null)
+            {
+                InvokeAsync(() => _dialog.CloseAsync());
+            }
+        }
+    }
+
+    private async Task ShowLoadScreenAsync()
+    {
+        parameters = new()
+            {
+                DialogType = DialogType.SplashScreen,
+                
+                Content = new()
+                {
+                    DisplayTime = 0,
+                    LoadingText = "Loading data..."
+                },
+
+                Width  = "300px",
+                Height = "110px"
+            };
+
+        _dialog = await DialogService.ShowSplashScreenAsync<CustomLoadScreen>(parameters);
+    }
+}

@@ -1,0 +1,26 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@implements IDialogContentComponent<SplashScreenContent>
+
+<FluentDialogHeader Visible="false" />
+    <FluentDialogBody>
+        <FluentStack Orientation="Microsoft.FluentUI.AspNetCore.Components.Orientation.Vertical" HorizontalAlignment="Microsoft.FluentUI.AspNetCore.Components.HorizontalAlignment.Center" Class="fluent-launch">
+
+            <div style="display: flex;flex-direction: row;padding: 15px;">
+                <div style="padding-right: 20px;"><FluentProgressRing /></div>
+
+                <div style="padding-top: 5px;">
+                <h5>
+                    @Content.LoadingText
+                </h5>
+                </div>                
+            </div>
+        
+        </FluentStack>
+    </FluentDialogBody>
+<FluentDialogFooter Visible="false" />
+
+
+@code {
+    [Parameter]
+    public SplashScreenContent Content { get; set; } = default!;
+}
